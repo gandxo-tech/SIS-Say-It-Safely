@@ -1,0 +1,154 @@
+
+  <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gandxo NGL Anonyme</title>
+  
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #101820, #1c1c2e);
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      background-color: #1f1f2f;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #0ff;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #00ffff;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #00ffff;
+      color: #1f1f2f;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #00cccc;
+    }
+
+    #linkOutput {
+      background-color: #ffffff;
+      color: #000000;
+      font-weight: bold;
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🔥 Reçois des messages anonymes 🔥</h1>
+    
+    <label for="pseudo">Ton Pseudo unique(Avec un chiffre) :</label>
+    <input type="text" id="pseudo" placeholder="Ex: Gandxo_tech">
+    
+    <button id="generateLink" required>Créer mon lien anonyme</button>
+
+    <div id="resultLink" style="display: none;">
+      <p>Voici ton lien 👇</p>
+      <input type="text" id="linkOutput" readonly>
+      <button id="copyBtn">Copier le lien</button>
+    </div>
+  </div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBqk3L_qkolD41H3yvHEzz4O-Sr15I-Tko",
+    authDomain: "gandxoanonymous.firebaseapp.com",
+    projectId: "gandxoanonymous",
+    storageBucket: "gandxoanonymous.appspot.com",
+    messagingSenderId: "836606625364",
+    appId: "1:836606625364:web:7150571998131c41c0cfc1",
+    measurementId: "G-97TCHJ33KW"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Exemple de sauvegarde d’un pseudo
+  async function savePseudo(pseudo) {
+    await setDoc(doc(db, "pseudos", pseudo), {
+      createdAt: new Date()
+    });
+    alert("Lien généré et pseudo enregistré !");
+  }
+
+  // Appelle cette fonction quand l’utilisateur clique sur “Générer lien”
+  document.getElementById("generateBtn").addEventListener("click", () => {
+    const pseudo = document.getElementById("pseudoInput").value.trim();
+    if (pseudo) {
+      savePseudo(pseudo);
+      // Redirection ou affichage du lien
+      const lien = `https://messageanonyme.vercel.app/message.html?to=${encodeURIComponent(pseudo)}`;
+      document.getElementById("linkDisplay").textContent = lien;
+    }
+  });
+</script>
+  <script>
+    document.getElementById("generateLink").addEventListener("click", () => {
+      const pseudo = document.getElementById("pseudo").value.trim();
+
+      if (pseudo === "") {
+        alert("Entre un pseudo valide !");
+        return;
+      }
+
+      const baseURL = "https://messageanonyme.vercel.app/index.html"; 
+      const finalLink = `${baseURL}?to=${encodeURIComponent(pseudo)}`;
+
+      // Affichage du lien
+      document.getElementById("resultLink").style.display = "block";
+      document.getElementById("linkOutput").value = finalLink;
+    });
+
+    // Copier le lien
+    document.getElementById("copyBtn").addEventListener("click", () => {
+      const link = document.getElementById("linkOutput");
+      link.select();
+      link.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(link.value);
+      alert("Lien copié !");
+    });
+  </script>
+
+</body>
+</html>
