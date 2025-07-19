@@ -74,7 +74,7 @@
 <body>
 
   <div class="container">
-    <h1>🔥 Reçois des messages anonymes 🔥</h1>
+    <h1>🫣Reçois des messages anonymes 🫣</h1>
     
     <label for="pseudo">Ton Pseudo unique(Avec un chiffre) :</label>
     <input type="text" id="pseudo" placeholder="Ex: Gandxo_tech">
@@ -141,7 +141,7 @@ await addDoc(collection(db, "messages"), {
         return;
       }
 
-      const baseURL = "https://messageanonyme.vercel.app/index.html"; 
+      const baseURL = "https://send-anonymous-messages.vercel.app/index.html"; 
       const finalLink = `${baseURL}?to=${encodeURIComponent(pseudo)}`;
 
       // Affichage du lien
