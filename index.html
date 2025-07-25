@@ -1,11 +1,9 @@
-
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SIS Anonyme</title>
-  
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -29,6 +27,51 @@
       text-align: center;
     }
 
+    /* Nouveau pour SIS et l'acronyme */
+    .sis-title {
+      font-size: 3em;
+      letter-spacing: 0.18em;
+      margin-bottom: 5px;
+      font-family: "Orbitron", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(90deg, #00fff7 20%, #0ff 40%, #fff 60%, #00fff7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 40px #00fff7);
+      animation: sisFlash 2s infinite;
+      font-weight: bold;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: center;
+      gap: 0.12em;
+    }
+
+    @keyframes sisFlash {
+      0%, 100% { filter: drop-shadow(0 0 40px #00fff7);}
+      50% { filter: drop-shadow(0 0 12px #00fff7);}
+    }
+
+    .acronym-def {
+      color: #00ffff;
+      font-size: 1.1em;
+      text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+      letter-spacing: 0.02em;
+      margin-bottom: 18px;
+      margin-top: -4px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .acronym-def .letter {
+      font-weight: bold;
+      color: #fff;
+      background: #00fff7;
+      border-radius: 50%;
+      padding: 2px 7px;
+      margin: 0 3px;
+      box-shadow: 0 0 8px #00fff7, 0 0 2px #fff;
+      font-size: 1.08em;
+    }
+
+    /* Styles existants */
     h1 {
       font-size: 24px;
       margin-bottom: 20px;
@@ -69,97 +112,61 @@
       border-radius: 10px;
       border: none;
     }
-.glow-text {
-  color: #00FFF7;
-  font-weight: bold;
-  text-shadow: 0 0 10px #00FFF7,
-               0 0 20px #00FFF7,
-               0 0 40px #00FFF7,
-               0 0 80px #00FFF7;
-  animation: pulse 2s infinite ease-in-out;
-}
+    .glow-text {
+      color: #00FFF7;
+      font-weight: bold;
+      text-shadow: 0 0 10px #00FFF7,
+                   0 0 20px #00FFF7,
+                   0 0 40px #00FFF7,
+                   0 0 80px #00FFF7;
+      animation: pulse 2s infinite ease-in-out;
+    }
 
-@keyframes pulse {
-  0%, 100% {
-    text-shadow: 0 0 10px #00FFF7,
-                 0 0 20px #00FFF7,
-                 0 0 40px #00FFF7,
-                 0 0 80px #00FFF7;
-  }
-  50% {
-    text-shadow: 0 0 5px #00FFF7,
-                 0 0 10px #00FFF7,
-                 0 0 20px #00FFF7,
-                 0 0 40px #00FFF7;
-  }
-}
+    @keyframes pulse {
+      0%, 100% {
+        text-shadow: 0 0 10px #00FFF7,
+                     0 0 20px #00FFF7,
+                     0 0 40px #00FFF7,
+                     0 0 80px #00FFF7;
+      }
+      50% {
+        text-shadow: 0 0 5px #00FFF7,
+                     0 0 10px #00FFF7,
+                     0 0 20px #00FFF7,
+                     0 0 40px #00FFF7;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-<h1 class"glow-text">SIS</h1>
-<h6><em>S</em>ay <em>I</em>t <em>S</em>afely</h6>
+    <!-- Nouveau bloc SIS mis en valeur -->
+    <h1 class="glow-text sis-title">
+      <span>S</span>
+      <span>I</span>
+      <span>S</span>
+    </h1>
+    <div class="acronym-def">
+      <span class="letter">S</span>ay
+      <span class="letter">I</span>t
+      <span class="letter">S</span>afely
+    </div>
+    <!-- Fin du bloc SIS -->
+
     <h1>🫣Reçois des messages anonymes 🫣</h1>
-    
     <label for="pseudo">Ton Pseudo unique(avec des accents) :</label>
     <input type="text" id="pseudo" placeholder="Ex: Exaucé_GDX">
-    
+
     <button id="generateLink" required>Créer mon lien anonyme</button>
 
     <div id="resultLink" style="display: none;">
       <p>Voici ton lien 👇</p>
       <input type="text" id="linkOutput" readonly>
       <button id="copyBtn">Copier le lien</button>
-
-<p><strong>SIS</strong>- Say It Safely</p>
-<p><strong>GBAGUIDI Exaucé</strong> Tout droits réservés ©2025
+      <p><strong>SIS</strong>- Say It Safely</p>
+      <p><strong>GBAGUIDI Exaucé</strong> Tout droits réservés ©2025</p>
     </div>
   </div>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyBqk3L_qkolD41H3yvHEzz4O-Sr15I-Tko",
-    authDomain: "gandxoanonymous.firebaseapp.com",
-    projectId: "gandxoanonymous",
-    storageBucket: "gandxoanonymous.appspot.com",
-    messagingSenderId: "836606625364",
-    appId: "1:836606625364:web:7150571998131c41c0cfc1",
-    measurementId: "G-97TCHJ33KW"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  // Exemple de sauvegarde d’un pseudo
-  async function savePseudo(pseudo) {
-    await setDoc(doc(db, "pseudos", pseudo), {
-      createdAt: new Date()
-    });
-    alert("Lien généré et pseudo enregistré !");
-  }
-
-  // Appelle cette fonction quand l’utilisateur clique sur “Générer lien”
-  document.getElementById("generateBtn").addEventListener("click", () => {
-    const pseudo = document.getElementById("pseudoInput").value.trim();
-    if (pseudo) {
-      savePseudo(pseudo);
-      // Redirection ou affichage du lien
-      const lien = `https://messageanonyme.vercel.app/message.html?to=${encodeURIComponent(pseudo)}`;
-      document.getElementById("linkDisplay").textContent = lien;
-    }
-  });
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-const db = getFirestore(app);
-
-await addDoc(collection(db, "messages"), {
-  to: "pseudoDestinataire",
-  message: "Voici un message anonyme",
-  createdAt: new Date()
-});
-</script>
   <script>
     document.getElementById("generateLink").addEventListener("click", () => {
       const pseudo = document.getElementById("pseudo").value.trim();
@@ -186,6 +193,5 @@ await addDoc(collection(db, "messages"), {
       alert("Lien copié 🤩💙");
     });
   </script>
-
 </body>
 </html>
