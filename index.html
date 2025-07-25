@@ -69,11 +69,35 @@
       border-radius: 10px;
       border: none;
     }
+.glow-text {
+  color: #00FFF7;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00FFF7,
+               0 0 20px #00FFF7,
+               0 0 40px #00FFF7,
+               0 0 80px #00FFF7;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    text-shadow: 0 0 10px #00FFF7,
+                 0 0 20px #00FFF7,
+                 0 0 40px #00FFF7,
+                 0 0 80px #00FFF7;
+  }
+  50% {
+    text-shadow: 0 0 5px #00FFF7,
+                 0 0 10px #00FFF7,
+                 0 0 20px #00FFF7,
+                 0 0 40px #00FFF7;
+  }
+}
   </style>
 </head>
 <body>
   <div class="container">
-<h1>SIS</h1>
+<h1 class"glow-text">SIS</h1>
 <h6><em>S</em>ay <em>I</em>t <em>S</em>afely</h6>
     <h1>🫣Reçois des messages anonymes 🫣</h1>
     
