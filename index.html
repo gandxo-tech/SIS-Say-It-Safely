@@ -136,9 +136,94 @@
                      0 0 40px #00FFF7;
       }
     }
+    /* Navbar style */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem;
+  background-color: #101820;
+  color: cyan;
+  position: relative;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;         /* au-dessus de tout */
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px cyan;
+}
+
+/* Hamburger icon */
+.hamburger {
+  font-size: 28px;
+  color: cyan;
+  cursor: pointer;
+  user-select: none;
+  display: flex ;
+  margin-right: 0;
+  padding-block: 8px 12px;
+  
+  
+}
+
+/* Nav links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links li a {
+  color: cyan;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hamburger {
+    display:flex;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: #1c1c2e;
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    padding: 1rem;
+    border-top: 1px solid cyan;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
   </style>
 </head>
 <body>
+  <nav class="navbar">
+  <div class="logo">SIS- Say It Safely</div>
+  <div class="hamburger" id="hamburger">&#9776;</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#pseudo">Envoyer un message</a></li>
+    <li><a href="https://sis-view-messages.vercel.app/">Voir mes messages</a></li>
+  </ul>
+</nav>
   <div class="container">
     <!-- Nouveau bloc SIS mis en valeur -->
     <h1 class="glow-text sis-title">
@@ -154,8 +239,8 @@
     <!-- Fin du bloc SIS -->
 
     <h1>🫣Reçois des messages anonymes 🫣</h1>
-    <label for="pseudo">Ton Pseudo unique(avec des accents) :</label>
-    <input type="text" id="pseudo" placeholder="Ex: Exaucé_GDX">
+    <label for="pseudo">Ton Pseudo unique(avec des accents/caractères speciaux) :</label>
+    <input type="text" id="pseudo" placeholder="Ex: #Toné123">
 
     <button id="generateLink" required>Créer mon lien anonyme</button>
 
@@ -168,6 +253,12 @@
     </div>
   </div>
   <script>
+    const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
     document.getElementById("generateLink").addEventListener("click", () => {
       const pseudo = document.getElementById("pseudo").value.trim();
 
@@ -176,7 +267,7 @@
         return;
       }
 
-      const baseURL = "https://send-anonymous-messages.vercel.app/index.html"; 
+      const baseURL = " Envoie moi un message anonyme avec SIS https://send-anonymous-messages.vercel.app/index.html"; 
       const finalLink = `${baseURL}?to=${encodeURIComponent(pseudo)}`;
 
       // Affichage du lien
@@ -192,6 +283,15 @@
       navigator.clipboard.writeText(link.value);
       alert("Lien copié 🤩💙");
     });
+  
   </script>
+  <script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+</script>
 </body>
 </html>
