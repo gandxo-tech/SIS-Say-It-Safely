@@ -252,6 +252,23 @@
       <p><strong>GBAGUIDI Exaucé</strong> Tout droits réservés ©2025</p>
     </div>
   </div>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97TCHJ33KW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+
+  gtag('js', new Date());
+  gtag('config', 'G-97TCHJ33KW', {
+    page_path: window.location.pathname + window.location.search,
+    page_location: window.location.href
+  });
+
+  // Identifier ce site dans GA
+  gtag('event', 'site_loaded', {
+    site_name: 'sis-say-it-safely'
+  });
+</script>
   <script>
     const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
