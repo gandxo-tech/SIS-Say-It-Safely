@@ -5,208 +5,294 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SIS Anonyme</title>
   <style>
+    /* VARIABLES CSS POUR LES MODES */
+    :root {
+      /* Couleurs du mode clair */
+      --body-bg: #e0f0ff;
+      --container-bg: #ffffff;
+      --text-color: #333333;
+      --accent-color: #007bff; /* Un bleu principal */
+      --accent-hover: #0056b3;
+      --input-bg: #f5f5f5;
+      --input-border: #cccccc;
+      --link-bg: #e9ecef;
+    }
+
+    /* Couleurs du mode sombre */
+    body.dark-mode {
+      --body-bg: #181828;
+      --container-bg: #23233a;
+      --text-color: #e9e9e9;
+      --accent-color: #00fff7; /* Le bleu original, ou un équivalent */
+      --accent-hover: #00b6b6;
+      --input-bg: #171721;
+      --input-border: #2a2a43;
+      --link-bg: #171721;
+    }
+
+    /* Style général */
     body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #181828, #23233a);
-  color: #e9e9e9;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--body-bg);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.5s, color 0.5s;
+    }
 
-.container {
-  background-color: #23233a;
-  padding: 32px 28px;
-  border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(0,255,247,0.07);
-  width: 90%;
-  max-width: 410px;
-  text-align: center;
-}
+    .container {
+      background-color: var(--container-bg);
+      padding: 32px 28px;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 410px;
+      text-align: center;
+      transition: background-color 0.5s, box-shadow 0.5s;
+    }
 
-/* Logo principal */
-.sis-title {
-  font-size: 2.1em;
-  letter-spacing: 0.13em;
-  margin-bottom: 5px;
-  font-family: "Orbitron", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #00fff7;
-  font-weight: bold;
-  text-transform: uppercase;
-  text-shadow: 0 2px 10px #1c1c2e32;
-  display: flex;
-  justify-content: center;
-  gap: 0.07em;
-  animation: none;
-}
+    .sis-title {
+      font-size: 2.1em;
+      letter-spacing: 0.13em;
+      margin-bottom: 5px;
+      font-family: "Orbitron", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--accent-color);
+      font-weight: bold;
+      text-transform: uppercase;
+      text-shadow: 0 2px 10px var(--accent-color);
+      display: flex;
+      justify-content: center;
+      gap: 0.07em;
+    }
 
-.acronym-def {
-  color: #00fff7;
-  font-size: 1em;
-  margin-bottom: 14px;
-  margin-top: -3px;
-  font-family: inherit;
-  font-weight: 500;
-}
+    .acronym-def {
+      color: var(--accent-color);
+      font-size: 1em;
+      margin-bottom: 14px;
+      margin-top: -3px;
+      font-family: inherit;
+      font-weight: 500;
+    }
 
-.acronym-def .letter {
-  font-weight: bold;
-  color: #181828;
-  background: #00fff7;
-  border-radius: 50%;
-  padding: 2px 7px;
-  margin: 0 2px;
-  font-size: 1em;
-  box-shadow: none;
-}
+    .acronym-def .letter {
+      font-weight: bold;
+      color: var(--container-bg);
+      background: var(--accent-color);
+      border-radius: 50%;
+      padding: 2px 7px;
+      margin: 0 2px;
+      font-size: 1em;
+      box-shadow: none;
+      transition: background 0.5s;
+    }
 
-h1 {
-  font-size: 22px;
-  margin-bottom: 18px;
-  color: #00fff7;
-  font-weight: 600;
-  text-shadow: none;
-}
+    h1 {
+      font-size: 22px;
+      margin-bottom: 18px;
+      color: var(--accent-color);
+      font-weight: 600;
+      text-shadow: none;
+    }
 
-input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #2a2a43;
-  background: #23233a;
-  color: #e9e9e9;
-  font-size: 16px;
-  margin-bottom: 14px;
-  transition: border 0.2s;
-}
-input[type="text"]:focus {
-  border: 1.5px solid #00fff7;
-  outline: none;
-}
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--text-color);
+      font-size: 16px;
+      margin-bottom: 14px;
+      transition: border 0.2s, background 0.5s, color 0.5s;
+    }
+    input[type="text"]:focus {
+      border: 1.5px solid var(--accent-color);
+      outline: none;
+    }
 
-button {
-  background-color: #00fff7;
-  color: #181828;
-  border: none;
-  padding: 10px 15px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.18s;
-  font-weight: 500;
-}
+    button {
+      background-color: var(--accent-color);
+      color: var(--container-bg);
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.18s, color 0.5s;
+      font-weight: 500;
+    }
 
-button:hover {
-  background-color: #00b6b6;
-}
+    button:hover {
+      background-color: var(--accent-hover);
+    }
 
-#linkOutput {
-  background-color: #171721;
-  color: #00fff7;
-  font-weight: 600;
-  width: 100%;
-  padding: 8px;
-  margin-top: 10px;
-  border-radius: 8px;
-  border: 1px solid #2a2a43;
-  font-size: 15px;
-}
+    #linkOutput {
+      background-color: var(--link-bg);
+      color: var(--accent-color);
+      font-weight: 600;
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--input-border);
+      font-size: 15px;
+      transition: background 0.5s;
+    }
 
-/* Navbar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0rem;
-  background-color: #181828;
-  color: #00fff7;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 9999;
-  box-shadow: 0 1px 8px #00fff744;
-}
-.logo {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #00fff7;
-  text-shadow: 0 1px 6px #18182866;
-}
-.hamburger {
-  font-size: 27px;
-  color: #00fff7;
-  cursor: pointer;
-  user-select: none;
-  display: flex;
-  margin-right: 0;
-  padding-block: 8px 12px;
-}
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 1.2rem;
-}
-.nav-links li a {
-  color: #00fff7;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.22s;
-}
-.nav-links li a:hover {
-  color: white;
-  text-shadow: 0 0 8px #00fff733;
-}
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    background-color: #23233a;
-    width: 100%;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    padding: 1rem;
-    border-top: 1px solid #00fff7;
-  }
-  .nav-links.active {
-    display: flex;
-  }
-}
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0;
+      background-color: var(--container-bg);
+      color: var(--accent-color);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+      box-shadow: 0 1px 8px var(--shadow-color);
+      transition: background-color 0.5s;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--accent-color);
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    }
+    .hamburger {
+      font-size: 27px;
+      color: var(--accent-color);
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      margin-right: 0;
+      padding-block: 8px 12px;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.2rem;
+    }
+    .nav-links li a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.22s;
+    }
+    .nav-links li a:hover {
+      color: var(--text-color);
+      text-shadow: none;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: var(--container-bg);
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 1rem;
+        border-top: 1px solid var(--accent-color);
+      }
+      .nav-links.active {
+        display: flex;
+      }
+    }
 
-/* Pied de page, copyright, etc. */
-.container p {
-  color: #b9b9cc;
-  font-size: 0.96em;
-  margin: 7px 0 0 0;
-  letter-spacing: 0.01em;
-}
-.container p strong {
-  color: #00fff7;
-}
-      
+    /* Pied de page, copyright, etc. */
+    .container p {
+      color: var(--secondary-text-color);
+      font-size: 0.96em;
+      margin: 7px 0 0 0;
+      letter-spacing: 0.01em;
+    }
+    .container p strong {
+      color: var(--accent-color);
+    }
+
+    /* Interrupteur de mode */
+    .mode-toggle {
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+    }
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 28px;
+    }
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--input-border);
+        transition: .4s;
+        border-radius: 28px;
+    }
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+    input:checked + .slider {
+        background-color: var(--accent-color);
+    }
+    input:checked + .slider:before {
+        transform: translateX(22px);
+    }
+    .mode-label {
+        color: var(--text-color);
+        font-size: 0.9em;
+        margin: 0 8px;
+    }
   </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6580476075080041"
      crossorigin="anonymous"></script>
 </head>
 <body>
   <nav class="navbar">
-  <div class="logo">SIS- Say It Safely</div>
-  <div class="hamburger" id="hamburger">&#9776;</div>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#accueil">Accueil</a></li>
-    <li><a href="https://sis-send.vercel.app/">Envoyer un message</a></li>
-    <li><a href="https://sis-view-messages.vercel.app/">Voir mes messages</a></li>
-<li><a href="https://sis-privacy-policy.vercel.app/">Voir les politiques de confidentialité</a></li>
-<li><a href="https://about-sis.vercel.app/">À propos</a></li>
-<li><a href="https://sis-terms-of-use.vercel.app/">Conditions d'utilisation</a></li>
-  </ul>
-</nav>
+    <div class="logo">SIS- Say It Safely</div>
+    <div class="mode-toggle">
+        <span class="mode-label">Clair</span>
+        <label class="switch">
+            <input type="checkbox" id="mode-toggle-checkbox">
+            <span class="slider"></span>
+        </label>
+        <span class="mode-label">Sombre</span>
+    </div>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="https://sis-send.vercel.app/">Envoyer un message</a></li>
+        <li><a href="https://sis-view-messages.vercel.app/">Voir mes messages</a></li>
+        <li><a href="https://sis-privacy-policy.vercel.app/">Voir les politiques de confidentialité</a></li>
+        <li><a href="https://about-sis.vercel.app/">À propos</a></li>
+        <li><a href="https://sis-terms-of-use.vercel.app/">Conditions d'utilisation</a></li>
+    </ul>
+  </nav>
   <div class="container">
-    <!-- Nouveau bloc SIS mis en valeur -->
     <h1 class="glow-text sis-title">
       <span>S</span>
       <span>I</span>
@@ -217,8 +303,6 @@ button:hover {
       <span class="letter">I</span>t
       <span class="letter">S</span>afely
     </div>
-    <!-- Fin du bloc SIS -->
-
     <h1>🫣Reçois des messages anonymes 🫣</h1>
     <label for="pseudo">Ton Pseudo unique(avec des accents/caractères speciaux) :</label>
     <input type="text" id="pseudo" placeholder="Ex: #Toné123">
@@ -233,7 +317,6 @@ button:hover {
       <p><strong>GBAGUIDI Exaucé</strong> Tout droits réservés ©2025</p>
     </div>
   </div>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97TCHJ33KW"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -252,11 +335,43 @@ button:hover {
 </script>
   <script>
     const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
+    const navLinks = document.getElementById('navLinks');
+    const modeToggle = document.getElementById('mode-toggle-checkbox');
+    const body = document.body;
 
-hamburger.addEventListener('click', () => {
-  navLinks.classList.toggle('active');
-});
+    // Fonction pour appliquer le mode
+    function applyMode(isDarkMode) {
+        if (isDarkMode) {
+            body.classList.add('dark-mode');
+        } else {
+            body.classList.remove('dark-mode');
+        }
+    }
+
+    // Charger la préférence de l'utilisateur
+    const savedMode = localStorage.getItem('mode');
+    if (savedMode === 'dark') {
+        modeToggle.checked = true;
+        applyMode(true);
+    } else {
+        applyMode(false);
+    }
+
+    // Écouter le changement sur le sélecteur
+    modeToggle.addEventListener('change', () => {
+        if (modeToggle.checked) {
+            localStorage.setItem('mode', 'dark');
+            applyMode(true);
+        } else {
+            localStorage.setItem('mode', 'light');
+            applyMode(false);
+        }
+    });
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
     document.getElementById("generateLink").addEventListener("click", () => {
       const pseudo = document.getElementById("pseudo").value.trim();
 
@@ -265,7 +380,7 @@ hamburger.addEventListener('click', () => {
         return;
       }
 
-      const baseURL = " Envoie moi un message anonyme avec SIS 🤫📨 https://sis-send.vercel.app/index.html"; 
+      const baseURL = " Envoie moi un message anonyme avec SIS 🤫📨 https://sis-send.vercel.app/index.html";
       const finalLink = `${baseURL}?to=${encodeURIComponent(pseudo)}`;
 
       // Affichage du lien
@@ -281,38 +396,28 @@ hamburger.addEventListener('click', () => {
       navigator.clipboard.writeText(link.value);
       alert("Lien copié 🤩💙 Envoie ton lien à tes ami(e)s 😉🫵");
     });
-  
   </script>
   <script>
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-  });
-</script>
-<script>
-// Désactive clic droit
-document.addEventListener('contextmenu', e => {
-  e.preventDefault();
-  alert("Action désactivée 🚫");
-});
-// Désactive F12, Ctrl+U, Ctrl+Shift+I, etc.
-document.addEventListener('keydown', function(e) {
-  if (
-    e.key === "F12" ||
-    (e.ctrlKey && e.key.toLowerCase() === 'u') ||
-    (e.ctrlKey && e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j' || e.key.toLowerCase() === 'c')) ||
-    (e.ctrlKey && e.key.toLowerCase() === 's')
-  ) {
-    e.preventDefault();
-    alert("Action désactivée 🚫");
-  }
-});
-</script>
+    // Désactive clic droit
+    document.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      alert("Action désactivée 🚫");
+    });
+    // Désactive F12, Ctrl+U, Ctrl+Shift+I, etc.
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.key.toLowerCase() === 'u') ||
+        (e.ctrlKey && e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j' || e.key.toLowerCase() === 'c')) ||
+        (e.ctrlKey && e.key.toLowerCase() === 's')
+      ) {
+        e.preventDefault();
+        alert("Action désactivée 🚫");
+      }
+    });
+  </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6580476075080041"
      crossorigin="anonymous"></script>
-<!-- Adessaie -->
 <ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-6580476075080041"
