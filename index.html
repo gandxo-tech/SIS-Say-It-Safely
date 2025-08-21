@@ -166,8 +166,18 @@
     }
     .nav-links {
       list-style: none;
-      display: flex;
-      gap: 1.2rem;
+      display: none; /* Rendre invisible par défaut */
+      flex-direction: column;
+      background-color: var(--container-bg);
+      width: 100%;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      padding: 1rem;
+      border-top: 1px solid var(--accent-color);
+    }
+    .nav-links.active {
+      display: flex; /* Rendre visible lorsque la classe 'active' est ajoutée */
     }
     .nav-links li a {
       color: var(--accent-color);
@@ -178,20 +188,16 @@
     .nav-links li a:hover {
       color: var(--text-color);
     }
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-        flex-direction: column;
-        background-color: var(--container-bg);
-        width: 100%;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        padding: 1rem;
-        border-top: 1px solid var(--accent-color);
+    @media (min-width: 768px) {
+      .hamburger {
+        display: none; /* Cacher le hamburger sur les grands écrans */
       }
-      .nav-links.active {
-        display: flex;
+      .nav-links {
+        display: flex; /* Afficher les liens sur les grands écrans */
+        flex-direction: row;
+        position: static;
+        width: auto;
+        border-top: none;
       }
     }
 
@@ -199,6 +205,14 @@
       color: var(--text-color);
       font-size: 0.96em;
       margin: 7px 0 0 0;
+    }
+
+    .description {
+      font-size: 0.95em;
+      margin-top: 20px;
+      margin-bottom: 25px;
+      line-height: 1.5;
+      color: var(--text-color);
     }
 
     .mode-toggle {
@@ -284,6 +298,13 @@
       <span class="letter">I</span>t
       <span class="letter">S</span>afely
     </div>
+    <p class="description">
+      Bienvenue sur SIS !
+      Une plateforme pour s'exprimer en toute securité.
+Créez votre pseudo unique pour générer votre lien personnel, puis partagez-le pour recevoir des messages anonymes. Simple, sécurisé et totalement privé, SIS vous permet de communiquer sans révéler votre identité.
+
+
+    </p>
     <h1>🫣 Reçois des messages anonymes 🫣</h1>
     <label for="pseudo">Ton Pseudo unique :</label>
     <input type="text" id="pseudo" placeholder="Ex: #Toné123">
