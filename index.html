@@ -7,30 +7,27 @@
   <style>
     /* VARIABLES CSS POUR LES MODES */
     :root {
-      /* Couleurs du mode clair */
       --body-bg: #e0f0ff;
       --container-bg: #ffffff;
       --text-color: #333333;
-      --accent-color: #007bff; /* Un bleu principal */
+      --accent-color: #007bff;
       --accent-hover: #0056b3;
       --input-bg: #f5f5f5;
       --input-border: #cccccc;
       --link-bg: #e9ecef;
     }
 
-    /* Couleurs du mode sombre */
     body.dark-mode {
       --body-bg: #181828;
       --container-bg: #23233a;
       --text-color: #e9e9e9;
-      --accent-color: #00fff7; /* Le bleu original, ou un équivalent */
+      --accent-color: #00fff7;
       --accent-hover: #00b6b6;
       --input-bg: #171721;
       --input-border: #2a2a43;
       --link-bg: #171721;
     }
 
-    /* Style général */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--body-bg);
@@ -86,8 +83,6 @@
       padding: 2px 7px;
       margin: 0 2px;
       font-size: 1em;
-      box-shadow: none;
-      transition: background 0.5s;
     }
 
     h1 {
@@ -95,7 +90,6 @@
       margin-bottom: 18px;
       color: var(--accent-color);
       font-weight: 600;
-      text-shadow: none;
     }
 
     input[type="text"] {
@@ -122,10 +116,9 @@
       font-size: 16px;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.18s, color 0.5s;
+      transition: background 0.18s;
       font-weight: 500;
     }
-
     button:hover {
       background-color: var(--accent-hover);
     }
@@ -140,7 +133,6 @@
       border-radius: 8px;
       border: 1px solid var(--input-border);
       font-size: 15px;
-      transition: background 0.5s;
     }
 
     /* Navbar */
@@ -156,14 +148,12 @@
       left: 0;
       width: 100%;
       z-index: 9999;
-      box-shadow: 0 1px 8px var(--shadow-color);
-      transition: background-color 0.5s;
+      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
     }
     .logo {
       font-size: 1.6rem;
       font-weight: bold;
       color: var(--accent-color);
-      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
     }
     .hamburger {
       font-size: 27px;
@@ -187,7 +177,6 @@
     }
     .nav-links li a:hover {
       color: var(--text-color);
-      text-shadow: none;
     }
     @media (max-width: 768px) {
       .nav-links {
@@ -206,18 +195,12 @@
       }
     }
 
-    /* Pied de page, copyright, etc. */
     .container p {
-      color: var(--secondary-text-color);
+      color: var(--text-color);
       font-size: 0.96em;
       margin: 7px 0 0 0;
-      letter-spacing: 0.01em;
-    }
-    .container p strong {
-      color: var(--accent-color);
     }
 
-    /* Interrupteur de mode */
     .mode-toggle {
         display: flex;
         align-items: center;
@@ -273,7 +256,7 @@
 </head>
 <body>
   <nav class="navbar">
-    <div class="logo">SIS- Say It Safely</div>
+    <div class="logo">SIS - Say It Safely</div>
     <div class="mode-toggle">
         <span class="mode-label">Clair</span>
         <label class="switch">
@@ -284,27 +267,25 @@
     </div>
     <div class="hamburger" id="hamburger">&#9776;</div>
     <ul class="nav-links" id="navLinks">
-        <li><a href="#accueil">Accueil</a></li>
-        <li><a href="https://sis-send.vercel.app/">Envoyer un message</a></li>
-        <li><a href="https://sis-view-messages.vercel.app/">Voir mes messages</a></li>
-        <li><a href="https://sis-privacy-policy.vercel.app/">Voir les politiques de confidentialité</a></li>
-        <li><a href="https://about-sis.vercel.app/">À propos</a></li>
-        <li><a href="https://sis-terms-of-use.vercel.app/">Conditions d'utilisation</a></li>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="envoyer.html">Envoyer un message</a></li>
+        <li><a href="voir.html">Voir mes messages</a></li>
+        <li><a href="politiques.html">Politiques de confidentialité</a></li>
+        <li><a href="propos.html">À propos</a></li>
+        <li><a href="conditions.html">Conditions d'utilisation</a></li>
     </ul>
   </nav>
   <div class="container">
     <h1 class="glow-text sis-title">
-      <span>S</span>
-      <span>I</span>
-      <span>S</span>
+      <span>S</span><span>I</span><span>S</span>
     </h1>
     <div class="acronym-def">
       <span class="letter">S</span>ay
       <span class="letter">I</span>t
       <span class="letter">S</span>afely
     </div>
-    <h1>🫣Reçois des messages anonymes 🫣</h1>
-    <label for="pseudo">Ton Pseudo unique(avec des accents/caractères speciaux) :</label>
+    <h1>🫣 Reçois des messages anonymes 🫣</h1>
+    <label for="pseudo">Ton Pseudo unique :</label>
     <input type="text" id="pseudo" placeholder="Ex: #Toné123">
 
     <button id="generateLink" required>Créer mon lien anonyme</button>
@@ -313,33 +294,17 @@
       <p>Voici ton lien 👇</p>
       <input type="text" id="linkOutput" readonly>
       <button id="copyBtn">Copier le lien</button>
-      <p><strong>SIS</strong>- Say It Safely</p>
-      <p><strong>GBAGUIDI Exaucé</strong> Tout droits réservés ©2025</p>
+      <p><strong>SIS</strong> - Say It Safely</p>
+      <p><strong>GBAGUIDI Exaucé</strong> Tous droits réservés ©2025</p>
     </div>
   </div>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-97TCHJ33KW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
 
-  gtag('js', new Date());
-  gtag('config', 'G-97TCHJ33KW', {
-    page_path: window.location.pathname + window.location.search,
-    page_location: window.location.href
-  });
-
-  // Identifier ce site dans GA
-  gtag('event', 'site_loaded', {
-    site_name: 'sis-say-it-safely'
-  });
-</script>
   <script>
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
     const modeToggle = document.getElementById('mode-toggle-checkbox');
     const body = document.body;
 
-    // Fonction pour appliquer le mode
     function applyMode(isDarkMode) {
         if (isDarkMode) {
             body.classList.add('dark-mode');
@@ -348,16 +313,12 @@
         }
     }
 
-    // Charger la préférence de l'utilisateur
     const savedMode = localStorage.getItem('mode');
     if (savedMode === 'dark') {
         modeToggle.checked = true;
         applyMode(true);
-    } else {
-        applyMode(false);
     }
 
-    // Écouter le changement sur le sélecteur
     modeToggle.addEventListener('change', () => {
         if (modeToggle.checked) {
             localStorage.setItem('mode', 'dark');
@@ -374,21 +335,16 @@
 
     document.getElementById("generateLink").addEventListener("click", () => {
       const pseudo = document.getElementById("pseudo").value.trim();
-
       if (pseudo === "") {
         alert("Entre un pseudo valide !");
         return;
       }
-
-      const baseURL = " Envoie moi un message anonyme avec SIS 🤫📨 https://sis-send.vercel.app/index.html";
+      const baseURL = "Envoie moi un message anonyme avec SIS 🤫📨 https://sis-send.vercel.app/index.html";
       const finalLink = `${baseURL}?to=${encodeURIComponent(pseudo)}`;
-
-      // Affichage du lien
       document.getElementById("resultLink").style.display = "block";
       document.getElementById("linkOutput").value = finalLink;
     });
 
-    // Copier le lien
     document.getElementById("copyBtn").addEventListener("click", () => {
       const link = document.getElementById("linkOutput");
       link.select();
@@ -397,35 +353,5 @@
       alert("Lien copié 🤩💙 Envoie ton lien à tes ami(e)s 😉🫵");
     });
   </script>
-  <script>
-    // Désactive clic droit
-    document.addEventListener('contextmenu', e => {
-      e.preventDefault();
-      alert("Action désactivée 🚫");
-    });
-    // Désactive F12, Ctrl+U, Ctrl+Shift+I, etc.
-    document.addEventListener('keydown', function(e) {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.key.toLowerCase() === 'u') ||
-        (e.ctrlKey && e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j' || e.key.toLowerCase() === 'c')) ||
-        (e.ctrlKey && e.key.toLowerCase() === 's')
-      ) {
-        e.preventDefault();
-        alert("Action désactivée 🚫");
-      }
-    });
-  </script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6580476075080041"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6580476075080041"
-     data-ad-slot="9071920014"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 </body>
 </html>
