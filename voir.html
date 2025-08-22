@@ -7,11 +7,10 @@
   <style>
     /* VARIABLES CSS POUR LES MODES */
     :root {
-      /* Couleurs du mode clair (par défaut) */
       --body-bg: #f6fbfd;
       --container-bg: #fff;
       --text-color: #333333;
-      --accent-color: #0072b5; /* Bleu principal */
+      --accent-color: #0072b5;
       --secondary-accent-color: #1cc7e4;
       --accent-hover: #0056b3;
       --input-bg: #ffffff;
@@ -24,7 +23,6 @@
       --download-btn-hover: #0099cc;
     }
 
-    /* Couleurs du mode sombre */
     body.dark-mode {
       --body-bg: #121822;
       --container-bg: #1a222c;
@@ -42,7 +40,6 @@
       --download-btn-hover: #00b6b6;
     }
 
-    /* Style général */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--body-bg);
@@ -57,257 +54,55 @@
       transition: background 0.5s, color 0.5s;
     }
 
-    .mode-toggle-container {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      align-items: center;
-    }
-    .mode-label {
-      font-size: 0.9em;
-      margin: 0 8px;
-    }
+    /* Mode toggle */
+    .mode-toggle-container { position: absolute; top: 20px; right: 20px; display: flex; align-items: center; }
+    .mode-label { font-size: 0.9em; margin: 0 8px; }
+    .switch { position: relative; display: inline-block; width: 50px; height: 28px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--input-border); transition: .4s; border-radius: 28px; }
+    .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+    input:checked + .slider { background-color: var(--secondary-accent-color); }
+    input:checked + .slider:before { transform: translateX(22px); }
 
-    /* Styles pour l'interrupteur */
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 50px;
-      height: 28px;
-    }
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: var(--input-border);
-      transition: .4s;
-      border-radius: 28px;
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 20px;
-      width: 20px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-    }
-    input:checked + .slider {
-      background-color: var(--secondary-accent-color);
-    }
-    input:checked + .slider:before {
-      transform: translateX(22px);
-    }
-
-    /* Styles du menu hamburger */
-    .menu-container {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-    }
-
-    .menu-toggle {
-      display: block;
-      width: 40px;
-      height: 40px;
-      background: var(--accent-color);
-      border-radius: 50%;
-      position: relative;
-      cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .menu-toggle .bar {
-      display: block;
-      width: 25px;
-      height: 3px;
-      background-color: #fff;
-      position: absolute;
-      left: 7.5px;
-      transition: all 0.3s ease;
-    }
-
+    /* Menu hamburger */
+    .menu-container { position: absolute; top: 20px; left: 20px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-start; }
+    .menu-toggle { display: block; width: 40px; height: 40px; background: var(--accent-color); border-radius: 50%; position: relative; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.2); margin-bottom: 10px; }
+    .menu-toggle .bar { display: block; width: 25px; height: 3px; background-color: #fff; position: absolute; left: 7.5px; transition: all 0.3s ease; }
     .menu-toggle .bar:nth-child(1) { top: 11px; }
     .menu-toggle .bar:nth-child(2) { top: 18.5px; }
     .menu-toggle .bar:nth-child(3) { top: 26px; }
+    .menu-toggle.active .bar:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+    .menu-toggle.active .bar:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
-    .menu-toggle.active .bar:nth-child(1) {
-      transform: translateY(7.5px) rotate(45deg);
-    }
+    .menu-links { position: absolute; top: 60px; left: 0; width: 180px; background: var(--container-bg); border-radius: 10px; list-style: none; padding: 10px 0; margin: 0; box-shadow: 0 4px 15px rgba(0,153,204,0.3); transform: scaleY(0); transform-origin: top; transition: transform 0.3s ease-in-out; }
+    .menu-links.active { transform: scaleY(1); }
+    .menu-links li a { display: block; padding: 12px 20px; text-decoration: none; color: var(--text-color); font-size: 16px; transition: background-color 0.2s; }
+    .menu-links li a:hover { background-color: var(--msg-item-bg); }
 
-    .menu-toggle.active .bar:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-toggle.active .bar:nth-child(3) {
-      transform: translateY(-7.5px) rotate(-45deg);
-    }
-
-    .menu-links {
-      position: absolute;
-      top: 50px;
-      left: 0;
-      width: 180px;
-      background: var(--container-bg);
-      border-radius: 10px;
-      list-style: none;
-      padding: 10px 0;
-      margin: 0;
-      box-shadow: 0 4px 15px rgba(0, 153, 204, 0.3);
-      transform: scaleY(0);
-      transform-origin: top;
-      transition: transform 0.3s ease-in-out;
-    }
-
-    body.dark-mode .menu-links {
-      box-shadow: 0 4px 15px rgba(0, 255, 247, 0.3);
-    }
-
-    .menu-links.active {
-      transform: scaleY(1);
-    }
-
-    .menu-links li a {
-      display: block;
-      padding: 12px 20px;
-      text-decoration: none;
-      color: var(--text-color);
-      font-size: 16px;
-      transition: background-color 0.2s;
-    }
-
-    .menu-links li a:hover {
-      background-color: var(--msg-item-bg);
-    }
-
-    /* Styles pour le reste de la page */
-    .container {
-      margin: 2vh auto;
-      background: var(--container-bg);
-      padding: 32px 20px;
-      border-radius: 32px;
-      width: 96vw;
-      max-width: 440px;
-      box-shadow: 0 8px 2px var(--shadow-color);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: background-color 0.5s, box-shadow 0.5s;
-    }
+    /* Page messages */
+    .container { margin: 2vh auto; background: var(--container-bg); padding: 32px 20px; border-radius: 32px; width: 96vw; max-width: 440px; box-shadow: 0 8px 2px var(--shadow-color); display: flex; flex-direction: column; align-items: center; transition: background-color 0.5s, box-shadow 0.5s; }
     h2 { color: var(--accent-color); margin-top: 0; }
-    input[type="text"] {
-      width: 80%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid var(--input-border);
-      background-color: var(--input-bg);
-      color: var(--text-color);
-      margin-bottom: 10px;
-      font-size: 17px;
-      text-align: center;
-      transition: background-color 0.5s, border-color 0.5s, color 0.5s;
-    }
-    button {
-      background: var(--secondary-accent-color);
-      color: var(--container-bg);
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-bottom: 18px;
-      align-self: center;
-      transition: background 0.2s;
-    }
+    input[type="text"] { width: 80%; padding: 10px; border-radius: 8px; border: 1px solid var(--input-border); background-color: var(--input-bg); color: var(--text-color); margin-bottom: 10px; font-size: 17px; text-align: center; transition: background-color 0.5s, border-color 0.5s, color 0.5s; }
+    button { background: var(--secondary-accent-color); color: var(--container-bg); border: none; padding: 10px 20px; border-radius: 8px; font-size: 16px; cursor: pointer; margin-bottom: 18px; align-self: center; transition: background 0.2s; }
     button:hover { background: var(--accent-hover); }
     .msg-list { margin-top: 22px; width: 100%; }
-    .msg-item {
-      background: var(--msg-item-bg);
-      margin-bottom: 28px;
-      padding: 18px;
-      border-radius: 14px;
-      box-shadow: 0 1px 6px var(--msg-item-hover-shadow);
-      color: var(--text-color);
-      position: relative;
-      border-left: 5px solid var(--secondary-accent-color);
-      transition: box-shadow 0.2s, background-color 0.5s, border-color 0.5s;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .msg-item:hover {
-      box-shadow: 0 4px 20px var(--msg-item-hover-shadow);
-    }
-    .msg-date {
-      color: var(--secondary-accent-color);
-      font-size: 13px;
-      margin-top: 10px;
-      text-align: right;
-    }
-    .no-msg {
-      color: var(--no-msg-color);
-      margin-top: 30px;
-      text-align: center;
-    }
-    .download-msg-btn {
-      margin-top: 12px;
-      background: var(--download-btn-bg);
-      color: var(--container-bg);
-      border: none;
-      border-radius: 8px;
-      font-size: 13px;
-      padding: 6px 12px;
-      cursor: pointer;
-      float: right;
-      transition: background 0.2s;
-    }
-    .download-msg-btn:hover {
-      background: var(--download-btn-hover);
-    }
-    /* Responsive Mobile */
+    .msg-item { background: var(--msg-item-bg); margin-bottom: 28px; padding: 18px; border-radius: 14px; box-shadow: 0 1px 6px var(--msg-item-hover-shadow); color: var(--text-color); position: relative; border-left: 5px solid var(--secondary-accent-color); transition: box-shadow 0.2s, background-color 0.5s, border-color 0.5s; width: 100%; box-sizing: border-box; }
+    .msg-item:hover { box-shadow: 0 4px 20px var(--msg-item-hover-shadow); }
+    .msg-date { color: var(--secondary-accent-color); font-size: 13px; margin-top: 10px; text-align: right; }
+    .no-msg { color: var(--no-msg-color); margin-top: 30px; text-align: center; }
+    .download-msg-btn { margin-top: 12px; background: var(--download-btn-bg); color: var(--container-bg); border: none; border-radius: 8px; font-size: 13px; padding: 6px 12px; cursor: pointer; float: right; transition: background 0.2s; }
+    .download-msg-btn:hover { background: var(--download-btn-hover); }
+
+    /* Responsive */
     @media (max-width: 600px) {
-      .container {
-        padding: 16px 6px;
-        border-radius: 18px;
-        width: 98vw;
-        max-width: 96vw;
-      }
-      input[type="text"] {
-        font-size: 15px;
-        padding: 8px;
-      }
-      button {
-        font-size: 15px;
-        padding: 8px 10px;
-      }
-      .msg-item {
-        padding: 12px 10px 8px 10px;
-        border-radius: 10px;
-      }
-      .menu-container, .mode-toggle-container {
-        top: 10px;
-      }
-      .menu-toggle {
-        width: 35px;
-        height: 35px;
-      }
-      .menu-toggle .bar {
-        width: 22px;
-        left: 6.5px;
-      }
+      .container { padding: 16px 6px; border-radius: 18px; width: 98vw; max-width: 96vw; }
+      input[type="text"] { font-size: 15px; padding: 8px; }
+      button { font-size: 15px; padding: 8px 10px; }
+      .msg-item { padding: 12px 10px 8px 10px; border-radius: 10px; }
+      .menu-container, .mode-toggle-container { top: 10px; }
+      .menu-toggle { width: 35px; height: 35px; }
+      .menu-toggle .bar { width: 22px; left: 6.5px; }
       .menu-toggle .bar:nth-child(1) { top: 9px; }
       .menu-toggle .bar:nth-child(2) { top: 16px; }
       .menu-toggle .bar:nth-child(3) { top: 23px; }
@@ -323,8 +118,11 @@
       <span class="bar"></span>
       <span class="bar"></span>
     </button>
-    
-
+    <ul class="menu-links" id="menu-links">
+      <li><a href="/index.html">Accueil</a></li>
+      <li><a href="/sis.html">SIS</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/about.html">À propos</a></li>
     </ul>
   </div>
 
@@ -336,32 +134,15 @@
     </label>
     <span class="mode-label">Sombre</span>
   </div>
+
   <div class="container">
     <h2>📬 Mes messages reçus</h2>
     <input type="text" id="pseudo" placeholder="Ton pseudo exact">
     <button id="voirBtn">Voir mes messages</button>
     <div class="msg-list" id="msgList"></div>
   </div>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6580476075080041"
-     crossorigin="anonymous"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-97TCHJ33KW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
 
-  gtag('js', new Date());
-  gtag('config', 'G-97TCHJ33KW', {
-    page_path: window.location.pathname + window.location.search,
-    page_location: window.location.href
-  });
-
-  // Identifier ce site dans GA
-  gtag('event', 'site_loaded', {
-    site_name: 'sis-view-messages'
-  });
-</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
     import { getFirestore, collection, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
@@ -384,17 +165,10 @@
       const msgList = document.getElementById('msgList');
       msgList.innerHTML = "";
 
-      if (!pseudo) {
-        alert("Entre ton pseudo !");
-        return;
-      }
+      if (!pseudo) { alert("Entre ton pseudo !"); return; }
 
       try {
-        const q = query(
-          collection(db, "messages"),
-          where("to", "==", pseudo),
-          orderBy("createdAt", "desc")
-        );
+        const q = query(collection(db, "messages"), where("to", "==", pseudo), orderBy("createdAt", "desc"));
         const snap = await getDocs(q);
 
         if (snap.empty) {
@@ -402,10 +176,7 @@
         } else {
           snap.forEach(doc => {
             const d = doc.data();
-            let dateTxt = "";
-            if (d.createdAt && d.createdAt.toDate) {
-              dateTxt = d.createdAt.toDate().toLocaleString();
-            }
+            let dateTxt = d.createdAt && d.createdAt.toDate ? d.createdAt.toDate().toLocaleString() : "";
             const divId = `msg-${doc.id}`;
             msgList.innerHTML += `
               <div class="msg-item" id="${divId}">
@@ -416,10 +187,9 @@
             `;
           });
 
-          // Ajout du handler pour chaque bouton de téléchargement
           setTimeout(() => {
             document.querySelectorAll('.download-msg-btn').forEach(btn => {
-              btn.onclick = async function() {
+              btn.onclick = () => {
                 const msgDiv = document.getElementById(btn.dataset.msgid);
                 html2canvas(msgDiv).then(canvas => {
                   const link = document.createElement('a');
@@ -436,44 +206,24 @@
       }
     };
   </script>
+
   <script>
-    // Gère la bascule entre le mode clair et le mode sombre
     document.addEventListener('DOMContentLoaded', function() {
       const modeToggle = document.getElementById('mode-toggle-checkbox');
       const body = document.body;
       const menuToggle = document.querySelector('.menu-toggle');
       const menuLinks = document.querySelector('.menu-links');
 
-      // Fonction pour appliquer le mode
-      function applyMode(isDarkMode) {
-        if (isDarkMode) {
-          body.classList.add('dark-mode');
-        } else {
-          body.classList.remove('dark-mode');
-        }
-      }
+      function applyMode(isDarkMode) { if(isDarkMode) body.classList.add('dark-mode'); else body.classList.remove('dark-mode'); }
 
-      // Charger la préférence de l'utilisateur
       const savedMode = localStorage.getItem('mode');
-      if (savedMode === 'dark') {
-        modeToggle.checked = true;
-        applyMode(true);
-      } else {
-        applyMode(false);
-      }
+      if(savedMode === 'dark') { modeToggle.checked = true; applyMode(true); } else { applyMode(false); }
 
-      // Écouter le changement sur le sélecteur
       modeToggle.addEventListener('change', () => {
-        if (modeToggle.checked) {
-          localStorage.setItem('mode', 'dark');
-          applyMode(true);
-        } else {
-          localStorage.setItem('mode', 'light');
-          applyMode(false);
-        }
+        if(modeToggle.checked) { localStorage.setItem('mode','dark'); applyMode(true); }
+        else { localStorage.setItem('mode','light'); applyMode(false); }
       });
 
-      // Gère l'ouverture/fermeture du menu hamburger
       menuToggle.addEventListener('click', () => {
         const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
         menuToggle.setAttribute('aria-expanded', !isExpanded);
@@ -482,22 +232,10 @@
       });
     });
 
-    // Désactive le clic droit
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-      alert("Fonction désactivée 🚫");
-    });
-
-    // Désactive F12, Ctrl+U, Ctrl+Shift+I/J/C, Ctrl+S…
-    document.addEventListener('keydown', function(e) {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.key.toLowerCase() === 'u') ||
-        (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase())) ||
-        (e.ctrlKey && e.key.toLowerCase() === 's')
-      ) {
-        e.preventDefault();
-        alert("Action interdite 🚫");
+    document.addEventListener('contextmenu', e => { e.preventDefault(); alert("Fonction désactivée 🚫"); });
+    document.addEventListener('keydown', e => {
+      if(e.key==="F12"||(e.ctrlKey&&e.key.toLowerCase()==='u')||(e.ctrlKey&&e.shiftKey&&['i','j','c'].includes(e.key.toLowerCase()))||(e.ctrlKey&&e.key.toLowerCase()==='s')){
+        e.preventDefault(); alert("Action interdite 🚫");
       }
     });
   </script>
