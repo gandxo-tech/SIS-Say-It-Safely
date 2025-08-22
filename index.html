@@ -179,16 +179,25 @@
     .nav-links.active {
       display: flex; /* Rendre visible lorsque la classe 'active' est ajoutée */
     }
+
+    /* Correction de l'espacement des liens */
+    .nav-links li {
+      margin: 8px 0; /* espace vertical mobile */
+    }
     .nav-links li a {
+      display: block;
       color: var(--accent-color);
       text-decoration: none;
       font-weight: 500;
-      transition: color 0.22s;
-padding: 10px 15px;
+      transition: color 0.22s, background-color 0.22s;
+      padding: 10px 15px;
+      border-radius: 6px;
     }
     .nav-links li a:hover {
-      color: var(--text-color);
+      background-color: var(--accent-color);
+      color: var(--container-bg);
     }
+
     @media (min-width: 768px) {
       .hamburger {
         display: none; /* Cacher le hamburger sur les grands écrans */
@@ -199,6 +208,10 @@ padding: 10px 15px;
         position: static;
         width: auto;
         border-top: none;
+        padding: 0;
+      }
+      .nav-links li {
+        margin: 0 12px; /* espace horizontal desktop */
       }
     }
 
@@ -282,18 +295,12 @@ padding: 10px 15px;
     <div class="hamburger" id="hamburger">&#9776;</div>
     <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Accueil</a></li>
-
         <li><a href="envoyer.html">Envoyer un message</a></li>
-
         <li><a href="voir.html">Voir mes messages</a></li>
-  <li><a href="avis.html">Envoyez un avis</a></li>
-
+        <li><a href="avis.html">Envoyez un avis</a></li>
         <li><a href="politiques.html">Politiques de confidentialité</a></li>
-
         <li><a href="propos.html">À propos</a></li>
-
         <li><a href="conditions.html">Conditions d'utilisation</a></li>
-
     </ul>
   </nav>
   <div class="container">
@@ -306,7 +313,7 @@ padding: 10px 15px;
       <span class="letter">S</span>afely
     </div>
     <p class="description">
-      **SIS** vous permet de recevoir des messages et des confessions de manière totalement anonyme. Partagez votre lien unique avec vos amis et followers pour qu'ils puissent vous envoyer des messages secrets, sans que vous ne sachiez qui les a envoyés. C'est le moyen parfait pour écouter ce que les gens pensent vraiment, en toute discrétion.
+      <strong>SIS</strong> vous permet de recevoir des messages et des confessions de manière totalement anonyme. Partagez votre lien unique avec vos amis et followers pour qu'ils puissent vous envoyer des messages secrets, sans que vous ne sachiez qui les a envoyés. C'est le moyen parfait pour écouter ce que les gens pensent vraiment, en toute discrétion.
     </p>
     <h1>🫣 Reçois des messages anonymes 🫣</h1>
     <label for="pseudo">Ton Pseudo unique :</label>
