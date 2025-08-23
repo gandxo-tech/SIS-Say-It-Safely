@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>SIS send a message </title>
+  <title>SIS envoyer un message</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -17,12 +16,18 @@
       align-items: center;
       min-height: 100vh;
     }
-    h2#recipient {
+    h3#recipient {
       margin-top: 40px;
       color: #0099cc;
       text-shadow: 0 0 5px #00ccff88, 0 0 10px #00ccff55;
       font-weight: 700;
       letter-spacing: 1.2px;
+    }
+    .desc {
+      text-align: center;
+      max-width: 500px;
+      margin-top: 10px;
+      color: #007799;
     }
     form {
       background: #ccefff;
@@ -92,6 +97,11 @@
       padding: 6px 0;
       box-sizing: border-box;
     }
+    .inputps[readonly] {
+      background: #f8fafd;
+      pointer-events: none;
+      user-select: none;
+    }
     #notif {
       display:none; 
       margin-top:15px; 
@@ -105,8 +115,9 @@
       max-width:500px; 
       box-shadow:0 2px 10px #00ccff44;
     }
+    /* Responsive */
     @media (max-width: 360px) {
-      h2#recipient { font-size: 1em; margin-top: 20px; }
+      h3#recipient { font-size: 1em; margin-top: 20px; }
       form { padding: 12px; width: 100vw; }
       textarea, .inputps { font-size: 14px; padding: 8px; border-radius: 8px; }
       button { font-size: 14px; padding: 10px 16px; border-radius: 8px; }
@@ -114,7 +125,7 @@
     }
     @media (min-width: 361px) and (max-width: 600px) {
       body { padding: 0 2vw; }
-      h2#recipient { font-size: 1.2em; margin-top: 24px; }
+      h3#recipient { font-size: 1.2em; margin-top: 24px; }
       form { padding: 16px 6vw; width: 100vw; max-width: 100vw; border-radius: 12px; }
       textarea, .inputps { font-size: 15px; padding: 10px; border-radius: 10px; }
       button { padding: 11px 18px; font-size: 15px; border-radius: 10px; }
@@ -134,7 +145,7 @@
       button { padding: 14px 30px; font-size: 16px; }
       #notif {font-size: 16px;}
     }
-    /* Style du menu hamburger */
+    /* Menu hamburger */
     .menu-container {
       position: absolute;
       top: 20px;
@@ -150,6 +161,7 @@
       position: relative;
       cursor: pointer;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      border:none;
     }
     .menu-toggle .bar {
       display: block;
@@ -163,17 +175,9 @@
     .menu-toggle .bar:nth-child(1) { top: 11px; }
     .menu-toggle .bar:nth-child(2) { top: 18.5px; }
     .menu-toggle .bar:nth-child(3) { top: 26px; }
-
-    .menu-toggle.active .bar:nth-child(1) {
-      transform: translateY(7.5px) rotate(45deg);
-    }
-    .menu-toggle.active .bar:nth-child(2) {
-      opacity: 0;
-    }
-    .menu-toggle.active .bar:nth-child(3) {
-      transform: translateY(-7.5px) rotate(-45deg);
-    }
-
+    .menu-toggle.active .bar:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+    .menu-toggle.active .bar:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
     .menu-links {
       position: absolute;
       top: 50px;
@@ -189,11 +193,7 @@
       transform-origin: top;
       transition: transform 0.3s ease-in-out;
     }
-
-    .menu-links.active {
-      transform: scaleY(1);
-    }
-
+    .menu-links.active { transform: scaleY(1);}
     .menu-links li a {
       display: block;
       padding: 12px 20px;
@@ -202,46 +202,49 @@
       font-size: 16px;
       transition: background-color 0.2s;
     }
-
     .menu-links li a:hover {
       background-color: #e7faff;
     }
   </style>
 </head>
 <body>
-  <h3 id="recipient">Envoyez votre message </h3>
-<p style="text-align:center; max-width:500px; margin-top:10px; color:#007799;">
-  Utilisez ce formulaire pour envoyer un message totalement anonyme à votre ami(e). 
-  Personne ne saura que c’est vous ! Entrez votre message ci-dessous et cliquez sur "Envoyer".
-</p>
-<form id="messageForm">
-  <input type="password" class="inputps" id="receiver" placeholder="Pseudo du destinataire" readonly />
-  <textarea id="messageInput" placeholder="Écris ton message ici..." required></textarea>
-  <button type="button" id="sendBtn">Envoyer</button>
-</form>
-<div id="notif"></div>
-  <form id="messageForm">
-    <input type="password" class="inputps" id="receiver" placeholder="Pseudo du destinataire" readonly />
+  <h3 id="recipient">Envoyez votre message</h3>
+  <p class="desc">
+    Utilisez ce formulaire pour envoyer un message totalement anonyme à votre ami(e).
+    Personne ne saura que c’est vous ! Entrez votre message ci-dessous et cliquez sur "Envoyer".
+  </p>
+  <!-- FORMULAIRE UNIQUE -->
+  <form id="messageForm" autocomplete="off">
+    <input type="password" class="inputps" id="receiver" placeholder="Pseudo du destinataire" readonly tabindex="-1" />
     <textarea id="messageInput" placeholder="Écris ton message ici..." required></textarea>
     <button type="button" id="sendBtn">Envoyer</button>
   </form>
   <div id="notif"></div>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-97TCHJ33KW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
 
-  gtag('js', new Date());
-  gtag('config', 'G-97TCHJ33KW', {
-    page_path: window.location.pathname + window.location.search,
-    page_location: window.location.href
-  });
+  <div class="menu-container">
+    <button class="menu-toggle" aria-expanded="false" aria-controls="menu-links">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <ul class="menu-links" id="menu-links">
+      <li><a href="index.html" target="_blank">Crée mon lien</a></li>
+      <li><a href="voir.html" target="_blank">Voir mes messages</a></li>
+    </ul>
+  </div>
 
-  // Identifier ce site dans GA
-  gtag('event', 'site_loaded', {
-    site_name: 'send-anonymous-messages'
-  });
-</script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97TCHJ33KW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-97TCHJ33KW', {
+      page_path: window.location.pathname + window.location.search,
+      page_location: window.location.href
+    });
+    gtag('event', 'site_loaded', { site_name: 'send-anonymous-messages' });
+  </script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
     import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
@@ -255,7 +258,6 @@
       appId: "1:836606625364:web:7150571998131c41c0cfc1",
       measurementId: "G-97TCHJ33KW"
     };
-
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
@@ -264,34 +266,20 @@
 
     document.getElementById("sendBtn").addEventListener("click", async () => {
       const msg = document.getElementById("messageInput").value.trim();
-
-      if (!msg) {
-        alert("Entre un message avant d'envoyer !");
-        return;
-      }
-
-      if (!toPseudo) {
-        alert("Pseudo destinataire introuvable dans l'URL 😔!");
-        return;
-      }
-
+      if (!msg) { alert("Entre un message avant d'envoyer !"); return; }
+      if (!toPseudo) { alert("Pseudo destinataire introuvable dans l'URL 😔!"); return; }
       try {
         await addDoc(collection(db, "messages"), {
           to: toPseudo,
           message: msg,
           createdAt: serverTimestamp()
         });
-
         document.getElementById("messageInput").value = "";
-
         const notif = document.getElementById("notif");
         notif.innerHTML = `Votre message a été envoyé avec succès !<br>
         <a href="https://sis-say-it-safely.vercel.app/" target="_blank" style="color:#0099cc;text-decoration:underline;font-weight:bold;">Crée ton propre lien ici</a>`;
         notif.style.display = "block";
-
-        setTimeout(() => {
-          notif.style.display = "none";
-        }, 8000);
+        setTimeout(() => { notif.style.display = "none"; }, 8000);
       } catch (error) {
         alert("Erreur lors de l'envoi : " + error.message);
       }
@@ -304,9 +292,7 @@
       if (pseudo) {
         const input = document.getElementById('receiver');
         input.value = decodeURIComponent(pseudo);
-        input.focus();
       }
-
       const textarea = document.getElementById("messageInput");
       textarea.addEventListener("input", () => {
         textarea.style.height = "auto";
@@ -320,49 +306,30 @@
       e.preventDefault();
       alert("Fonction désactivée retournes d'où tu viens 🚫");
     });
-
     // Désactive F12, Ctrl+U, Ctrl+Shift+I/J/C, Ctrl+S
     document.addEventListener('keydown', function(e) {
-      // F12
-      if (e.key === "F12") {
-        e.preventDefault();
-        alert("Action interdite 🚫");
-      }
-      // Ctrl+U, Ctrl+S
-      if (e.ctrlKey && (e.key.toLowerCase() === 'u' || e.key.toLowerCase() === 's')) {
-        e.preventDefault();
-        alert("Action interdite 🚫");
-      }
-      // Ctrl+Shift+I/J/C
-      if (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase())) {
-        e.preventDefault();
-        alert("Action interdite 🚫");
-      }
+      if (e.key === "F12") { e.preventDefault(); alert("Action interdite 🚫"); }
+      if (e.ctrlKey && (e.key.toLowerCase() === 'u' || e.key.toLowerCase() === 's')) { e.preventDefault(); alert("Action interdite 🚫"); }
+      if (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase())) { e.preventDefault(); alert("Action interdite 🚫"); }
     });
   </script>
-
-  <div class="menu-container">
-    <button class="menu-toggle" aria-expanded="false" aria-controls="menu-links">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
-    <ul class="menu-links" id="menu-links">
-  <li><a href="index.html" target="_blank">Crée mon lien</a></li>
-  <li><a href="voir.html" target="_blank">Voir mes messages </a></li>
-    </ul>
-  </div>
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const menuToggle = document.querySelector('.menu-toggle');
       const menuLinks = document.querySelector('.menu-links');
-
       menuToggle.addEventListener('click', () => {
         const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
         menuToggle.setAttribute('aria-expanded', !isExpanded);
         menuToggle.classList.toggle('active');
         menuLinks.classList.toggle('active');
+      });
+      // Fermer menu sur clic lien
+      menuLinks.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') {
+          menuToggle.classList.remove('active');
+          menuLinks.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }
       });
     });
   </script>
