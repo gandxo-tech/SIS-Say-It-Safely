@@ -210,6 +210,16 @@
 </head>
 <body>
   <h3 id="recipient">Envoyez votre message </h3>
+<p style="text-align:center; max-width:500px; margin-top:10px; color:#007799;">
+  Utilisez ce formulaire pour envoyer un message totalement anonyme à votre ami(e). 
+  Personne ne saura que c’est vous ! Entrez votre message ci-dessous et cliquez sur "Envoyer".
+</p>
+<form id="messageForm">
+  <input type="password" class="inputps" id="receiver" placeholder="Pseudo du destinataire" readonly />
+  <textarea id="messageInput" placeholder="Écris ton message ici..." required></textarea>
+  <button type="button" id="sendBtn">Envoyer</button>
+</form>
+<div id="notif"></div>
   <form id="messageForm">
     <input type="password" class="inputps" id="receiver" placeholder="Pseudo du destinataire" readonly />
     <textarea id="messageInput" placeholder="Écris ton message ici..." required></textarea>
