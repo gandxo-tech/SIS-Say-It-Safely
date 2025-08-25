@@ -329,23 +329,25 @@
       <p><strong>GBAGUIDI Exaucé</strong> Tous droits réservés ©2025</p>
     </div>
   </div>
-<!-- Script test PopCash -->
-<script>
-  // Déclenchement PopCash au premier clic sur la page
+<<!-- Script PopCash optimisé mobile -->
+<script type="text/javascript">
   function triggerPopCash() {
-    console.log("Test PopCash déclenché !");
-    
-    // On simule un vrai clic pour PopCash
-    var a = document.createElement('a');
-    a.href = "https://www.popcash.net"; // juste pour test, la vraie pub se déclenche automatiquement via leur script
-    a.target = "_blank";
-    a.click();
+    // Message pour vérifier que ça se déclenche
+    alert("PopCash déclenché !");
 
-    // Retirer l'écouteur après le premier clic
+    // Chargement du script officiel PopCash
+    var pop_tag = document.createElement('script');
+    pop_tag.src = '//cdn.popcash.net/show.js';
+    document.body.appendChild(pop_tag);
+
+    // On retire les écouteurs pour ne pas déclencher plusieurs fois
     document.removeEventListener('click', triggerPopCash);
+    document.removeEventListener('scroll', triggerPopCash);
   }
 
+  // Déclenche au premier clic ou au premier scroll
   document.addEventListener('click', triggerPopCash);
+  document.addEventListener('scroll', triggerPopCash);
 </script>
 <script type="text/javascript">
    var uid = '494206';
