@@ -329,31 +329,42 @@
       <p><strong>GBAGUIDI Exaucé</strong> Tous droits réservés ©2025</p>
     </div>
   </div>
-<<!-- Script PopCash optimisé mobile -->
-<script type="text/javascript">
-  function triggerPopCash() {
-    // Message pour vérifier que ça se déclenche
-    alert("PopCash déclenché !");
+<script>
+(function(){
+  var fired = false;
 
-    // Chargement du script officiel PopCash
+  function insertPopcash() {
+    if (fired) return;
+    fired = true;
+
+    // Script officiel PopCash avec uid/wid
+    var uid = '494206';
+    var wid = '744977';
     var pop_tag = document.createElement('script');
     pop_tag.src = '//cdn.popcash.net/show.js';
+    pop_tag.async = true;
     document.body.appendChild(pop_tag);
 
-    // On retire les écouteurs pour ne pas déclencher plusieurs fois
-    document.removeEventListener('click', triggerPopCash);
-    document.removeEventListener('scroll', triggerPopCash);
+    // fallback si le 1er script ne charge pas
+    pop_tag.onerror = function() {
+      var pop_tag2 = document.createElement('script');
+      pop_tag2.src = '//cdn2.popcash.net/show.js';
+      document.body.appendChild(pop_tag2);
+    }
+
+    removeListeners();
   }
 
-  // Déclenche au premier clic ou au premier scroll
-  document.addEventListener('click', triggerPopCash);
-  document.addEventListener('scroll', triggerPopCash);
-</script>
-<script type="text/javascript">
-   var uid = '494206';
-   var wid = '744977';
-   var pop_tag = document.createElement('script');pop_tag.src='//cdn.popcash.net/show.js';document.body.appendChild(pop_tag);
-   pop_tag.onerror = function() {pop_tag = document.createElement('script');pop_tag.src='//cdn2.popcash.net/show.js';document.body.appendChild(pop_tag)};
+  function removeListeners() {
+    ['pointerdown','touchstart','click','scroll'].forEach(function(e){
+      document.removeEventListener(e, insertPopcash);
+    });
+  }
+
+  ['pointerdown','touchstart','click','scroll'].forEach(function(ev){
+    document.addEventListener(ev, insertPopcash, {passive:true});
+  });
+})();
 </script>
   <script>
     const hamburger = document.getElementById('hamburger');
